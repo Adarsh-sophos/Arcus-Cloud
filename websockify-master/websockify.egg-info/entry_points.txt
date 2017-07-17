@@ -1,0 +1,3 @@
+[console_scripts]
+websockify = websockify.websocketproxy:websockify_init
+

@@ -1,0 +1,12 @@
+
+- hosts: web
+  tasks:
+  - lvol:
+      vg: vg1
+      lv: 40
+      size: 50
+
+  - name: resizing fs
+    command: resize2fs /dev/vg1/40
+      
+      	

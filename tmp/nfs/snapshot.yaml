@@ -1,0 +1,9 @@
+
+- hosts: web
+  tasks:
+  
+  - lvol:
+      vg: vg1
+      lv: 10-iscsi
+      size: 512
+      snapshot: 05-Jul-2017-22-35-49 

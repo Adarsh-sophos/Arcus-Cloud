@@ -1,0 +1,32 @@
+
+- hosts: web
+
+  tasks:
+
+  #yum install scsi-target-utils -y
+  - package:
+      name: "scsi-target-utils"
+      state: present
+
+  #create LV
+  - lvol:
+      vg: vg1
+      lv: 10-iscsi
+      size: 512
+
+  #create a partition in storage (don't format)
+
+  #write in /etc/tgt/targets.conf file -
+  #<target 1>
+  #	  backing-store /dev/vg1/10-iscsi
+  #</target>
+  
+  - name: "setup config file"
+    copy:
+      src: "/Arcus/public/tmp/iscsi/targets.conf"
+      dest: "/etc/tgt/targets.conf"
+
+  #systemctl restart tgtd
+  - service:
+      name: "tgtd"
+      state: restarted

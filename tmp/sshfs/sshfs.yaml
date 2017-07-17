@@ -1,0 +1,52 @@
+
+- hosts : web
+
+  tasks:
+
+  - name: make a user
+    command: sudo useradd miracle123
+  
+  - name: set password
+    command: echo "redhat" | passwd miracle123 --stdin
+
+  #- name: make a user
+  #  user:
+  #    name: miracle123
+  #    password: admin
+
+  - name: make directory
+    file:
+      state: directory
+      path: /sshfs/miracle123-lv1
+
+  # change owner of shared folder
+  - name: changing owner to miracle123
+    command: sudo chown -R miracle123 /sshfs/miracle123-lv1/
+   
+  - name: give all permissions to user miracle123
+    command: sudo chmod 700 /sshfs/miracle123-lv1
+
+  - name: creating lv from vg
+    lvol:
+      lv: miracle123-lv1
+      vg: vg1
+      size: 50
+
+  # formating the created lv
+  - name: Format LV
+    filesystem:
+      fstype: ext4
+      dev: /dev/vg1/miracle123-lv1
+
+  # mount the lv permanently
+  - name: permanent mount lv
+    mount:
+      path: /sshfs/miracle123-lv1
+      src: /dev/vg1/miracle123-lv1
+      fstype: ext4
+      state: mounted
+
+  # restart ssh
+  - service:
+      name: "sshd"
+      state: restarted 

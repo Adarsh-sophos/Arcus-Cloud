@@ -1,0 +1,50 @@
+
+#software install
+
+- hosts: web
+
+  tasks:
+
+  - package:
+      name: "nfs-utils"
+      state: present
+
+
+#create LV
+
+  - lvol:
+      vg: vg1
+      lv: 42
+      size: 50
+
+
+#format LV
+
+  - name: Format LV
+    filesystem:
+      fstype: ext4
+      dev: /dev/vg1/42
+
+
+#permanenly mount LV
+
+  - name: Permanently mount LV
+    mount:
+      path: /nfs-share/42
+      src: /dev/vg1/42
+      fstype: ext4
+      state: mounted
+
+#echo '/nfs-share/42	50(rw,no_root_squash)' >> /etc/exports
+
+  - name: "setup config file"
+    copy:
+      src: "/Arcus/public/tmp/nfs/exports"
+      dest: "/etc/exports"
+
+#systemctl restart nfs
+
+  - service:
+      name: "nfs"
+      state: restarted
+    

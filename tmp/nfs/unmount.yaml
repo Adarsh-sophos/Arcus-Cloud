@@ -1,0 +1,6 @@
+
+- hosts: web
+  tasks:
+  
+  - name: unmount drive
+    command: umount /nfs-share/6 

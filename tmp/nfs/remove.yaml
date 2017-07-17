@@ -1,0 +1,11 @@
+
+- hosts: web
+  tasks:
+  
+  - command: sudo umount -l /nfs-share/36
+  
+  - lvol:
+      vg: vg1
+      lv: 36
+      state: absent
+      force: yes 
