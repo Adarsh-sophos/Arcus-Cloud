@@ -6,6 +6,8 @@
 >
 > ***Abhishek Khandal***
 >
+> ***Raju Kumar Singh***
+>
 > (Under the mentorship of **Mr. Vimal Daga, Technical Head**)
 
 <br/>
