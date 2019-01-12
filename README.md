@@ -6,7 +6,7 @@
 >
 > ***Abhishek Khandal***
 >
-> (Under the mentorship of **Mr. Vimal Daga, Technical Head**)
+> (Under the mentorship of **Mr. Vimal Daga, Technical Head, LinuxWorld**)
 
 <br/>
 
